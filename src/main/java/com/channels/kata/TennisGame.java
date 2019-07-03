@@ -43,6 +43,6 @@ public class TennisGame {
     }
 
     private boolean isWinningMarginPointScored() {
-        return player1.getPoint() == WINNING_MARGIN_POINT;
+        return player1.getPoint() >= WINNING_MARGIN_POINT;
     }
 }
