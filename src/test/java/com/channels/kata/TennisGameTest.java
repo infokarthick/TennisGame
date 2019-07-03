@@ -1,5 +1,6 @@
 package com.channels.kata;
 
+import com.channels.kata.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with customer names")
-    public void tennisGameShouldHavePosibilityToRegisterCustomNameForTwoPlayersTest(){
+    public void tennisGameShouldHavePossibilityToRegisterCustomNameForTwoPlayersTest() {
         tennisGame = new TennisGame("Tom", "John");
         assertEquals("Tom",tennisGame.getPlayer1().getName());
         assertEquals("John",tennisGame.getPlayer2().getName());
@@ -45,7 +46,7 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("When the Player1 score one point then game score should be equal to Fifteen-Love")
-    public void whenPlayer1ScorePointThenGameStatusShouldBeEqualToFifteenLoveTest() {
+    public void whenPlayer1WinsOneServiceThenGameStatusShouldBeEqualToFifteenLoveTest() {
         tennisGame.getPlayer1().scorePoint();
 
         assertEquals("Fifteen-Love", tennisGame.getGameScore());
@@ -53,11 +54,25 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("When the Player2 score two point then game score should be equal to Love-Thirty")
-    public void whenPlayer2ScoreTwoPointsThenGameStatusShouldBeEqualToLoveThirtyTest() {
-        tennisGame.getPlayer2().scorePoint();
-        tennisGame.getPlayer2().scorePoint();
+    public void whenPlayer2WinsTwoServicesThenGameStatusShouldBeEqualToLoveThirtyTest() {
+        serviceWinByPlayer(tennisGame.getPlayer2(), 2);
 
         assertEquals("Love-Thirty", tennisGame.getGameScore());
+    }
+
+    @Test
+    @DisplayName("When the Player1 wins three services and Player2 score wins two services then game score should be equal to Forty-Thirty")
+    public void whenPlayer1WinsThreeServicesAndPlayer2WinsTwoServicesThenGameStatusShouldBeEqualToFortyThirtyTest() {
+        serviceWinByPlayer(tennisGame.getPlayer1(), 3);
+        serviceWinByPlayer(tennisGame.getPlayer2(), 2);
+
+        assertEquals("Forty-Thirty", tennisGame.getGameScore());
+    }
+
+    private void serviceWinByPlayer(Player player, int numberOfWins) {
+        for (int i = 0; i < numberOfWins; i++) {
+            player.scorePoint();
+        }
     }
 
 }
