@@ -5,6 +5,7 @@ import com.channels.kata.model.Player;
 public class TennisGame {
 
     private static final String[] score = {"Love", "Fifteen", "Thirty", "Forty"};
+    private static final int WINNING_MARGIN_POINT = 3;
 
     private Player player1;
     private Player player2;
@@ -30,10 +31,18 @@ public class TennisGame {
 
     public String getGameScore() {
         if (player1.getPoint() == player2.getPoint()) {
-            gameScore = score[player1.getPoint()] + "-All";
+            if (isWinningMarginPointScored()) {
+                gameScore = "Deuce";
+            } else {
+                gameScore = score[player1.getPoint()] + "-All";
+            }
         } else {
             gameScore = score[player1.getPoint()] + "-" + score[player2.getPoint()];
         }
         return gameScore;
+    }
+
+    private boolean isWinningMarginPointScored() {
+        return player1.getPoint() == WINNING_MARGIN_POINT;
     }
 }

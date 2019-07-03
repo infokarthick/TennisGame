@@ -69,6 +69,15 @@ public class TennisGameTest {
         assertEquals("Forty-Thirty", tennisGame.getGameScore());
     }
 
+    @Test
+    @DisplayName("When the Player1 wins three services and Player2 score wins three services then game score should be equal to Deuce")
+    public void whenPlayer1WinsThreeServicesAndPlayer2WinsThreeServicesThenGameStatusShouldBeEqualToDeuceTest() {
+        serviceWinByPlayer(tennisGame.getPlayer1(), 3);
+        serviceWinByPlayer(tennisGame.getPlayer2(), 3);
+
+        assertEquals("Deuce", tennisGame.getGameScore());
+    }
+
     private void serviceWinByPlayer(Player player, int numberOfWins) {
         for (int i = 0; i < numberOfWins; i++) {
             player.scorePoint();
