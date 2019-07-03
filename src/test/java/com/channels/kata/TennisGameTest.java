@@ -4,6 +4,9 @@ import com.channels.kata.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,20 +72,22 @@ public class TennisGameTest {
         assertEquals("Forty-Thirty", tennisGame.getGameScore());
     }
 
-    @Test
-    @DisplayName("When the Player1 wins three services and Player2 score wins three services then game score should be equal to Deuce")
-    public void whenPlayer1WinsThreeServicesAndPlayer2WinsThreeServicesThenGameStatusShouldBeEqualToDeuceTest() {
-        serviceWinByPlayer(tennisGame.getPlayer1(), 3);
-        serviceWinByPlayer(tennisGame.getPlayer2(), 3);
+    @ParameterizedTest
+    @CsvSource({"1,0,Fifteen-Love", "0,1,Love-Fifteen", "1,1,Fifteen-All", "1,2,Fifteen-Thirty", "2,1,Thirty-Fifteen", "1,3,Fifteen-Forty", "2,3,Thirty-Forty", "3,2,Forty-Thirty", "2,2,Thirty-All"})
+    @DisplayName("The running score of each game is described in a manner peculiar to tennis: scores from zero to three points are described as “love”, “fifteen”, “thirty”, and “forty” respectively")
+    public void runningScoreShouldBeDescribedInAMannerPeculiarToTennis(int player1Points, int player2Points, String gameScore) {
+        serviceWinByPlayer(tennisGame.getPlayer1(), player1Points);
+        serviceWinByPlayer(tennisGame.getPlayer2(), player2Points);
 
-        assertEquals("Deuce", tennisGame.getGameScore());
+        assertEquals(gameScore, tennisGame.getGameScore());
     }
 
-    @Test
-    @DisplayName("When the Player1 score point equal with player2 score point and number of winning services of player1 is greater than three then game score should be equal to Deuce")
-    public void whenPlayer1WinsMoreThanThreeServicesAndScoreEqualsWithPlayer2ThenGameStatusShouldBeEqualToDeuceTest() {
-        serviceWinByPlayer(tennisGame.getPlayer1(), 5);
-        serviceWinByPlayer(tennisGame.getPlayer2(), 5);
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 7, 9, 10})
+    @DisplayName("If at least three points have been scored by each player, and the scores are equal, the score is Deuce")
+    public void WhenAtLeastThreePointsScoredByEachPlayerAndScoresAreEqualThenGameScoreShouldBeEqualToDeuce(int points) {
+        serviceWinByPlayer(tennisGame.getPlayer1(), points);
+        serviceWinByPlayer(tennisGame.getPlayer2(), points);
 
         assertEquals("Deuce", tennisGame.getGameScore());
     }
