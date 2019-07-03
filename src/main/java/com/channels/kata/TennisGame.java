@@ -8,8 +8,12 @@ public class TennisGame {
     private Player player2;
 
     public TennisGame(){
-        player1 = new Player("Player1");
-        player2 = new Player("Player2");
+        this("Player1", "Player2");
+    }
+
+    public TennisGame(String player1Name, String player2Name) {
+        player1 = new Player(player1Name);
+        player2 = new Player(player2Name);
     }
 
     public Player getPlayer1() {
