@@ -16,5 +16,16 @@ public class TennisGameTest {
         assertEquals("Player1",tennisGame.getPlayer1().getName());
         assertEquals("Player2",tennisGame.getPlayer2().getName());
     }
+    @Test
+    public void atTheStartOfTheGameEachPlayerShouldBeInitializedWithZeroPointTest(){
+        TennisGame tennisGame = new TennisGame();
+        assertNotNull(tennisGame);
+        assertNotNull(tennisGame.getPlayer1());
+        assertNotNull(tennisGame.getPlayer2());
+        assertEquals(0,tennisGame.getPlayer1().getPoint());
+        assertEquals(0,tennisGame.getPlayer2().getPoint());
+    }
+
+
 
 }
