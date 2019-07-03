@@ -4,6 +4,8 @@ import com.channels.kata.model.Player;
 
 public class TennisGame {
 
+    private static final String[] score = {"Love", "Fifteen"};
+
     private Player player1;
     private Player player2;
     private String gameScore;
@@ -27,6 +29,11 @@ public class TennisGame {
     }
 
     public String getGameScore() {
+        if (player1.getPoint() == player2.getPoint()) {
+            gameScore = score[player1.getPoint()] + "-All";
+        } else {
+            gameScore = score[player1.getPoint()] + "-" + score[player2.getPoint()];
+        }
         return gameScore;
     }
 }

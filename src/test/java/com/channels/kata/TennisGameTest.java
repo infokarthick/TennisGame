@@ -43,4 +43,12 @@ public class TennisGameTest {
         assertEquals("Love-All", tennisGame.getGameScore());
     }
 
+    @Test
+    @DisplayName("When the Player1 score one point then game score should be equal to Fifteen-Love")
+    public void whenPlayer1ScorePointThenPlayer1PointshouldBeIncrementByOnePoint() {
+        tennisGame.getPlayer1().scorePoint();
+
+        assertEquals("Fifteen-Love", tennisGame.getGameScore());
+    }
+
 }
