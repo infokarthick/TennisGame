@@ -37,4 +37,10 @@ public class TennisGameTest {
         assertEquals(0,tennisGame.getPlayer2().getPoint());
     }
 
+    @Test
+    @DisplayName("Score should be Love-All At the beginning of the Tennis game")
+    public void statusOfTheTennisGameShouldBeLoveAllAtTheBeginnningTest(){
+        assertEquals("Love-All", tennisGame.getGameScore());
+    }
+
 }
