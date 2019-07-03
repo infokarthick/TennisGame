@@ -6,6 +6,9 @@ public class TennisGame {
 
     private static final String[] score = {"Love", "Fifteen", "Thirty", "Forty"};
     private static final int WINNING_MARGIN_POINT = 3;
+    private static final char HYPHEN = '-';
+    private static final String HYPHEN_ALL = HYPHEN + "All";
+    private static final String DEUCE = "Deuce";
 
     private Player player1;
     private Player player2;
@@ -18,7 +21,7 @@ public class TennisGame {
     public TennisGame(String player1Name, String player2Name) {
         player1 = new Player(player1Name);
         player2 = new Player(player2Name);
-        gameScore = "Love-All";
+        gameScore = score[0] + HYPHEN_ALL;
     }
 
     public Player getPlayer1() {
@@ -32,12 +35,12 @@ public class TennisGame {
     public String getGameScore() {
         if (player1.getPoint() == player2.getPoint()) {
             if (isWinningMarginPointScored()) {
-                gameScore = "Deuce";
+                gameScore = DEUCE;
             } else {
-                gameScore = score[player1.getPoint()] + "-All";
+                gameScore = score[player1.getPoint()] + HYPHEN_ALL;
             }
         } else {
-            gameScore = score[player1.getPoint()] + "-" + score[player2.getPoint()];
+            gameScore = score[player1.getPoint()] + HYPHEN + score[player2.getPoint()];
         }
         return gameScore;
     }
