@@ -45,10 +45,19 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("When the Player1 score one point then game score should be equal to Fifteen-Love")
-    public void whenPlayer1ScorePointThenPlayer1PointshouldBeIncrementByOnePoint() {
+    public void whenPlayer1ScorePointThenGameStatusShouldBeEqualToFifteenLoveTest() {
         tennisGame.getPlayer1().scorePoint();
 
         assertEquals("Fifteen-Love", tennisGame.getGameScore());
+    }
+
+    @Test
+    @DisplayName("When the Player2 score two point then game score should be equal to Love-Thirty")
+    public void whenPlayer2ScoreTwoPointsThenGameStatusShouldBeEqualToLoveThirtyTest() {
+        tennisGame.getPlayer2().scorePoint();
+        tennisGame.getPlayer2().scorePoint();
+
+        assertEquals("Love-Thirty", tennisGame.getGameScore());
     }
 
 }
