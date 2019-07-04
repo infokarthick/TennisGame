@@ -7,14 +7,26 @@
 3. If at least three points have been scored by each player, and the scores are equal, the score is “deuce”.
 4. If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is “advantage” for the player in the lead.
 
-#Prerequisite
+# Prerequisite
+~~~
 Java 1.8 version
 Maven 3.3+
 Git
+~~~
 
 **Jacoco code coverage Report using JaCoCo Maven plugin**
 ~~~
 1. Open the command prompt / terminal from project directory
 2. Run 'mvn clean test', the JaCoCo code coverage report will be generated at target/site/jacoco/*
 3. Open the target/site/jacoco/index.html file, review the code coverage report
+~~~
+
+**Mutation code coverage Report using PITest Maven plugin**
+~~~
+1. Open the command prompt / terminal from project directory
+2. Run the PITest manually
+    ~~~~ $ mvn clean org.pitest:pitest-maven:mutationCoverage ~~~
+    OR
+3. Run 'mvn clean test', the Mutation code coverage report will be generated at target/pit-reports/YYYYMMDDHHMI/*
+4. Open the target/pit-reports/YYYYMMDDHHMI/index.html file, review the mutation coverage report
 ~~~
