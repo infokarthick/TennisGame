@@ -5,8 +5,13 @@ import com.channels.kata.model.Player;
 public class TennisGame {
 
     private static final String[] score = {"Love", "Fifteen", "Thirty", "Forty"};
-    private static final int WINNING_MARGIN_POINT = 3;
+
+    public static final int MINIMUM_WINNING_SCORE = 4;
+    public static final int WINNING_DIFFERENCE_POINT = 2;
+    public static final String WON_THE_MATCH = " won the match";
+
     private static final char HYPHEN = '-';
+    private static final int MINIMUM_DEUCE_POINT = 3;
     private static final String HYPHEN_ALL = HYPHEN + "All";
     private static final String DEUCE = "Deuce";
 
@@ -39,8 +44,8 @@ public class TennisGame {
             } else {
                 gameScore = score[player1.getPoint()] + HYPHEN_ALL;
             }
-        } else if ((player1.getPoint() >= 4 || player2.getPoint() >= 4) && Math.abs(player1.getPoint() - player2.getPoint()) >= 2) {
-            gameScore = getTopScorerName() + " won the match";
+        } else if ((player1.getPoint() >= MINIMUM_WINNING_SCORE || player2.getPoint() >= MINIMUM_WINNING_SCORE) && Math.abs(player1.getPoint() - player2.getPoint()) >= WINNING_DIFFERENCE_POINT) {
+            gameScore = getTopScorerName() + WON_THE_MATCH;
         } else {
             gameScore = score[player1.getPoint()] + HYPHEN + score[player2.getPoint()];
         }
@@ -48,7 +53,7 @@ public class TennisGame {
     }
 
     private boolean isWinningMarginPointScored() {
-        return player1.getPoint() >= WINNING_MARGIN_POINT;
+        return player1.getPoint() >= MINIMUM_DEUCE_POINT;
     }
 
     private String getTopScorerName() {
