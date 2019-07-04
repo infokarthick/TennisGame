@@ -22,23 +22,23 @@ public class TennisGameTest {
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with default names as Player1, Player2")
     public void eachTennisGameShouldHaveTwoPlayersInitializedWithDefaultNameTest(){
-        assertEquals("Player1",tennisGame.getPlayer1().getName());
-        assertEquals("Player2",tennisGame.getPlayer2().getName());
+        assertEquals("Player1", tennisGame.getPlayerOne().getName());
+        assertEquals("Player2", tennisGame.getPlayerTwo().getName());
     }
 
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with customer names")
     public void tennisGameShouldHavePossibilityToRegisterCustomNameForTwoPlayersTest() {
         tennisGame = new TennisGame("Tom", "John");
-        assertEquals("Tom",tennisGame.getPlayer1().getName());
-        assertEquals("John",tennisGame.getPlayer2().getName());
+        assertEquals("Tom", tennisGame.getPlayerOne().getName());
+        assertEquals("John", tennisGame.getPlayerTwo().getName());
     }
 
     @Test
     @DisplayName("At the start of the Tennis Game each player should have zero points ")
     public void atTheStartOfTheGameEachPlayerShouldBeInitializedWithZeroPointTest(){
-        assertEquals(0,tennisGame.getPlayer1().getPoint());
-        assertEquals(0,tennisGame.getPlayer2().getPoint());
+        assertEquals(0, tennisGame.getPlayerOne().getPoint());
+        assertEquals(0, tennisGame.getPlayerTwo().getPoint());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TennisGameTest {
     @Test
     @DisplayName("When the Player1 score one point then game score should be equal to Fifteen-Love")
     public void whenPlayer1WinsOneServiceThenGameStatusShouldBeEqualToFifteenLoveTest() {
-        tennisGame.getPlayer1().scorePoint();
+        tennisGame.getPlayerOne().scorePoint();
 
         assertEquals("Fifteen-Love", tennisGame.getGameScore());
     }
@@ -58,7 +58,7 @@ public class TennisGameTest {
     @Test
     @DisplayName("When the Player2 score two point then game score should be equal to Love-Thirty")
     public void whenPlayer2WinsTwoServicesThenGameStatusShouldBeEqualToLoveThirtyTest() {
-        serviceWinByPlayer(tennisGame.getPlayer2(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
 
         assertEquals("Love-Thirty", tennisGame.getGameScore());
     }
@@ -66,8 +66,8 @@ public class TennisGameTest {
     @Test
     @DisplayName("When the Player1 wins three services and Player2 score wins two services then game score should be equal to Forty-Thirty")
     public void whenPlayer1WinsThreeServicesAndPlayer2WinsTwoServicesThenGameStatusShouldBeEqualToFortyThirtyTest() {
-        serviceWinByPlayer(tennisGame.getPlayer1(), 3);
-        serviceWinByPlayer(tennisGame.getPlayer2(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerOne(), 3);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
 
         assertEquals("Forty-Thirty", tennisGame.getGameScore());
     }
@@ -78,8 +78,8 @@ public class TennisGameTest {
     @DisplayName("The running score of each game is described in a manner peculiar to tennis:" +
             " scores from zero to three points are described as “love”, “fifteen”, “thirty”, and “forty” respectively")
     public void runningScoreShouldBeDescribedInAMannerPeculiarToTennis(int player1Points, int player2Points, String gameScore) {
-        serviceWinByPlayer(tennisGame.getPlayer1(), player1Points);
-        serviceWinByPlayer(tennisGame.getPlayer2(), player2Points);
+        serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
         assertEquals(gameScore, tennisGame.getGameScore());
     }
@@ -88,8 +88,8 @@ public class TennisGameTest {
     @ValueSource(ints = {3, 4, 5, 7, 9, 10})
     @DisplayName("If at least three points have been scored by each player, and the scores are equal, the score is Deuce")
     public void WhenAtLeastThreePointsScoredByEachPlayerAndScoresAreEqualThenGameScoreShouldBeEqualToDeuce(int points) {
-        serviceWinByPlayer(tennisGame.getPlayer1(), points);
-        serviceWinByPlayer(tennisGame.getPlayer2(), points);
+        serviceWinByPlayer(tennisGame.getPlayerOne(), points);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), points);
 
         assertEquals("Deuce", tennisGame.getGameScore());
     }
@@ -101,8 +101,8 @@ public class TennisGameTest {
             "3,5,Player2 won the match", "6,8,Player2 won the match", "9,11,Player2 won the match"})
     @DisplayName("A game is Won by a player to have won at least four points in total and at least two points more than the opponent")
     public void gameIsWonByPlayerToHaveMinimumFourPointsInTotalAndMinimumTwoPointsMoreThanTheOpponent(int player1Points, int player2Points, String gameScore) {
-        serviceWinByPlayer(tennisGame.getPlayer1(), player1Points);
-        serviceWinByPlayer(tennisGame.getPlayer2(), player2Points);
+        serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
         assertEquals(gameScore, tennisGame.getGameScore());
     }
@@ -111,8 +111,8 @@ public class TennisGameTest {
     @CsvSource({"4,3,Player1 has advantage", "5,4,Player1 has advantage", "7,6,Player1 has advantage", "3,4,Player2 has advantage", "9,10,Player2 has advantage"})
     @DisplayName("If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is “advantage” for the player in the lead.")
     public void whenAtleastThreePointsScoredByEachPlayerAndPointDifferenceIsOneThenGameIsAdvantageForThePlayerInLead(int player1Points, int player2Points, String gameScore) {
-        serviceWinByPlayer(tennisGame.getPlayer1(), player1Points);
-        serviceWinByPlayer(tennisGame.getPlayer2(), player2Points);
+        serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
         assertEquals(gameScore, tennisGame.getGameScore());
     }

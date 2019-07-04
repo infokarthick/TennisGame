@@ -10,66 +10,73 @@ public class TennisGame {
 
     private static final char HYPHEN = '-';
     private static final String WON_THE_MATCH = " won the match";
+    private static final String HAS_ADVANTAGE = " has advantage";
     private static final String HYPHEN_ALL = HYPHEN + "All";
     private static final String DEUCE = "Deuce";
+    private static final String PLAYER_ONE_DEFAULT_NAME = "Player1";
+    private static final String PLAYER_TWO_DEFAULT_NAME = "Player2";
 
     private static final String[] score = {"Love", "Fifteen", "Thirty", "Forty"};
 
-    private Player player1;
-    private Player player2;
+    private Player playerOne;
+    private Player playerTwo;
     private String gameScore;
 
     public TennisGame(){
-        this("Player1", "Player2");
+        this(PLAYER_ONE_DEFAULT_NAME, PLAYER_TWO_DEFAULT_NAME);
     }
 
     public TennisGame(String player1Name, String player2Name) {
-        player1 = new Player(player1Name);
-        player2 = new Player(player2Name);
-        gameScore = score[0] + HYPHEN_ALL;
+        playerOne = new Player(player1Name);
+        playerTwo = new Player(player2Name);
+        gameScore = getConcatenatedString(score[0], HYPHEN_ALL);
     }
 
-    public Player getPlayer1() {
-        return player1;
+    public Player getPlayerOne() {
+        return playerOne;
     }
 
-    public Player getPlayer2() {
-        return player2;
+    public Player getPlayerTwo() {
+        return playerTwo;
     }
 
     public String getGameScore() {
-        if (player1.getPoint() == player2.getPoint()) {
-            if (isWinningMarginPointScored()) {
-                gameScore = DEUCE;
-            } else {
-                gameScore = score[player1.getPoint()] + HYPHEN_ALL;
-            }
+        if (isScoredPointsAreEqual()) {
+            gameScore = isMinimumDeucePointsScored() ? DEUCE : getConcatenatedString(score[playerOne.getPoint()], HYPHEN_ALL);
         } else if (isAnyPlayerEligibleToWin()) {
-            if (isPointsDifferenceEqualToOne()) {
-                gameScore = getTopScorerName() + " has advantage";
-            } else {
-                gameScore = getTopScorerName() + WON_THE_MATCH;
-            }
+            gameScore = isPointsDifferenceEqualToOne() ? getEligibleWinningPlayerScore(HAS_ADVANTAGE) : getEligibleWinningPlayerScore(WON_THE_MATCH);
         } else {
-            gameScore = score[player1.getPoint()] + HYPHEN + score[player2.getPoint()];
+            gameScore = score[playerOne.getPoint()] + HYPHEN + score[playerTwo.getPoint()];
         }
         return gameScore;
     }
 
+    private String getConcatenatedString(String topScorerName, String hasAdvantage) {
+        return topScorerName + hasAdvantage;
+    }
+
+    private String getEligibleWinningPlayerScore(String eligibleWinnerScore) {
+        return getConcatenatedString(getTopScorerName(), eligibleWinnerScore);
+    }
+
+    private boolean isScoredPointsAreEqual() {
+        return playerOne.getPoint() == playerTwo.getPoint();
+    }
+
     private boolean isPointsDifferenceEqualToOne() {
-        return Math.abs(player1.getPoint() - player2.getPoint()) == ADVANTAGE_DIFFERENCE_POINT;
+        return Math.abs(playerOne.getPoint() - playerTwo.getPoint()) == ADVANTAGE_DIFFERENCE_POINT;
     }
 
     private boolean isAnyPlayerEligibleToWin() {
-        return player1.getPoint() >= MINIMUM_WINNING_SCORE || player2.getPoint() >= MINIMUM_WINNING_SCORE;
+        return playerOne.getPoint() >= MINIMUM_WINNING_SCORE || playerTwo.getPoint() >= MINIMUM_WINNING_SCORE;
     }
 
-    private boolean isWinningMarginPointScored() {
-        return player1.getPoint() >= MINIMUM_DEUCE_POINT;
+    private boolean isMinimumDeucePointsScored() {
+        return playerOne.getPoint() >= MINIMUM_DEUCE_POINT;
     }
 
     private String getTopScorerName() {
-        return player1.getPoint() > player2.getPoint() ? player1.getName() : player2.getName();
+        return playerOne.getPoint() > playerTwo.getPoint() ? playerOne.getName() : playerTwo.getName();
     }
 
 }
