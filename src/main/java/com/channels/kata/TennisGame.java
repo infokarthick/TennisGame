@@ -44,12 +44,20 @@ public class TennisGame {
             } else {
                 gameScore = score[player1.getPoint()] + HYPHEN_ALL;
             }
-        } else if ((player1.getPoint() >= MINIMUM_WINNING_SCORE || player2.getPoint() >= MINIMUM_WINNING_SCORE) && Math.abs(player1.getPoint() - player2.getPoint()) >= WINNING_DIFFERENCE_POINT) {
+        } else if (isAnyPlayerEligibleToWin() && isPointsDifferenceGreaterThanOrEqualToTwo()) {
             gameScore = getTopScorerName() + WON_THE_MATCH;
         } else {
             gameScore = score[player1.getPoint()] + HYPHEN + score[player2.getPoint()];
         }
         return gameScore;
+    }
+
+    private boolean isPointsDifferenceGreaterThanOrEqualToTwo() {
+        return Math.abs(player1.getPoint() - player2.getPoint()) >= WINNING_DIFFERENCE_POINT;
+    }
+
+    private boolean isAnyPlayerEligibleToWin() {
+        return player1.getPoint() >= MINIMUM_WINNING_SCORE || player2.getPoint() >= MINIMUM_WINNING_SCORE;
     }
 
     private boolean isWinningMarginPointScored() {
