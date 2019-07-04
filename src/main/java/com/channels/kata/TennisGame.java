@@ -39,6 +39,8 @@ public class TennisGame {
             } else {
                 gameScore = score[player1.getPoint()] + HYPHEN_ALL;
             }
+        } else if ((player1.getPoint() >= 4 || player2.getPoint() >= 4) && Math.abs(player1.getPoint() - player2.getPoint()) >= 2) {
+            gameScore = getTopScorerName() + " won the match";
         } else {
             gameScore = score[player1.getPoint()] + HYPHEN + score[player2.getPoint()];
         }
@@ -48,4 +50,9 @@ public class TennisGame {
     private boolean isWinningMarginPointScored() {
         return player1.getPoint() >= WINNING_MARGIN_POINT;
     }
+
+    private String getTopScorerName() {
+        return player1.getPoint() > player2.getPoint() ? player1.getName() : player2.getName();
+    }
+
 }

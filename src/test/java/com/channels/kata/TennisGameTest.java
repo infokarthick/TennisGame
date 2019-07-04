@@ -92,6 +92,17 @@ public class TennisGameTest {
         assertEquals("Deuce", tennisGame.getGameScore());
     }
 
+
+    @ParameterizedTest
+    @CsvSource({"4,0,Player1 won the match"})
+    @DisplayName("A game is Won by a player to have won at least four points in total and at least two points more than the opponent")
+    public void gameIsWonByPlayerToHaveMinimumFourPointsInTotalAndMinimumTwoPointsMoreThanTheOpponent(int player1Points, int player2Points, String gameScore) {
+        serviceWinByPlayer(tennisGame.getPlayer1(), player1Points);
+        serviceWinByPlayer(tennisGame.getPlayer2(), player2Points);
+
+        assertEquals(gameScore, tennisGame.getGameScore());
+    }
+
     private void serviceWinByPlayer(Player player, int numberOfWins) {
         for (int i = 0; i < numberOfWins; i++) {
             player.scorePoint();
