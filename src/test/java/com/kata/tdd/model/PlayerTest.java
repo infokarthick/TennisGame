@@ -1,4 +1,4 @@
-package com.channels.kata.model;
+package com.kata.tdd.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

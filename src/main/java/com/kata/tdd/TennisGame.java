@@ -1,6 +1,6 @@
-package com.channels.kata;
+package com.kata.tdd;
 
-import com.channels.kata.model.Player;
+import com.kata.tdd.model.Player;
 
 public class TennisGame {
 
@@ -32,11 +32,11 @@ public class TennisGame {
         gameScore = getConcatenatedString(score[0], HYPHEN_ALL);
     }
 
-    public Player getPlayerOne() {
+    protected Player getPlayerOne() {
         return playerOne;
     }
 
-    public Player getPlayerTwo() {
+    protected Player getPlayerTwo() {
         return playerTwo;
     }
 

@@ -1,4 +1,4 @@
-package com.channels.kata.model;
+package com.kata.tdd.model;
 
 public class Player {
 

@@ -1,6 +1,7 @@
-package com.channels.kata;
+package com.kata.tdd;
 
-import com.channels.kata.model.Player;
+import com.kata.tdd.model.Player;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,23 +23,23 @@ public class TennisGameTest {
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with default names as Player1, Player2")
     public void eachTennisGameShouldHaveTwoPlayersInitializedWithDefaultNameTest(){
-        assertEquals("Player1", tennisGame.getPlayerOne().getName());
-        assertEquals("Player2", tennisGame.getPlayerTwo().getName());
+        Assertions.assertEquals("Player1", tennisGame.getPlayerOne().getName());
+        Assertions.assertEquals("Player2", tennisGame.getPlayerTwo().getName());
     }
 
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with customer names")
     public void tennisGameShouldHavePossibilityToRegisterCustomNameForTwoPlayersTest() {
         tennisGame = new TennisGame("Tom", "John");
-        assertEquals("Tom", tennisGame.getPlayerOne().getName());
-        assertEquals("John", tennisGame.getPlayerTwo().getName());
+        Assertions.assertEquals("Tom", tennisGame.getPlayerOne().getName());
+        Assertions.assertEquals("John", tennisGame.getPlayerTwo().getName());
     }
 
     @Test
     @DisplayName("At the start of the Tennis Game each player should have zero points ")
     public void atTheStartOfTheGameEachPlayerShouldBeInitializedWithZeroPointTest(){
-        assertEquals(0, tennisGame.getPlayerOne().getPoint());
-        assertEquals(0, tennisGame.getPlayerTwo().getPoint());
+        Assertions.assertEquals(0, tennisGame.getPlayerOne().getPoint());
+        Assertions.assertEquals(0, tennisGame.getPlayerTwo().getPoint());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class TennisGameTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 4, 5, 7, 9, 10})
     @DisplayName("If at least three points have been scored by each player, and the scores are equal, the score is Deuce")
-    public void WhenAtLeastThreePointsScoredByEachPlayerAndScoresAreEqualThenGameScoreShouldBeEqualToDeuce(int points) {
+    public void whenAtLeastThreePointsScoredByEachPlayerAndScoresAreEqualThenGameScoreShouldBeEqualToDeuce(int points) {
         serviceWinByPlayer(tennisGame.getPlayerOne(), points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), points);
 
