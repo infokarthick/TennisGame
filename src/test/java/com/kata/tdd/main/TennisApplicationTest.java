@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TennisApplicationTest {
 
     @Test
-    @DisplayName("System Out should print 'Welcome Message' in the Console")
-    public void systemOutShouldPrintWelcomeMessageInConsoleTest(){
+    @DisplayName("At the beginning of the game, Tennis Application should print the welcome message in the console")
+    public void startOfTennisApplicationShouldPrintTheWelcomeMessageInConsoleTest(){
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        System.out.println("Welcome message");
+        TennisApplication.main(new String[] {});
 
-        assertEquals("Welcome message\r\n", outputStream.toString());
+        assertEquals("Welcome!! Are you ready to play Tennis!\r\n", outputStream.toString());
     }
 }
