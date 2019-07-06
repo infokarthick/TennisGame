@@ -15,6 +15,8 @@ public class TennisGame {
     private static final String DEUCE = "Deuce";
     private static final String PLAYER_ONE_DEFAULT_NAME = "Player1";
     private static final String PLAYER_TWO_DEFAULT_NAME = "Player2";
+    private static final int PLAYER_ONE_WINNING_INDICATOR = 1;
+    private static final int PLAYER_TWO_WINNING_INDICATOR = 2;
 
     private static final String[] score = {"Love", "Fifteen", "Thirty", "Forty"};
 
@@ -79,17 +81,17 @@ public class TennisGame {
         return playerOne.getPoint() > playerTwo.getPoint() ? playerOne.getName() : playerTwo.getName();
     }
 
-    public void addCurrentServicePointToWinner(int winningIndicator) {
-        if (1 == winningIndicator) {
+    protected void addCurrentServicePointToWinner(int winningIndicator) {
+        if (PLAYER_ONE_WINNING_INDICATOR == winningIndicator) {
             playerOne.scorePoint();
-        } else if (2 == winningIndicator) {
+        } else if (PLAYER_TWO_WINNING_INDICATOR == winningIndicator) {
             playerTwo.scorePoint();
         } else {
             throw new IllegalArgumentException("Winning indicator should be either 1 or 2");
         }
     }
 
-    public String gameScore(int winningIndicator) {
+    protected String gameScore(int winningIndicator) {
         addCurrentServicePointToWinner(winningIndicator);
         return calculateGameScore();
     }
