@@ -35,7 +35,7 @@ Git
 ~~~
 
 ## Run Test Cases
-~~~
+
 **IDE**
 ~~~
 1. Navigate to Maven Toolbar
