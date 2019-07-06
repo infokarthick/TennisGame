@@ -23,14 +23,14 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with default names as Player1, Player2")
-    public void eachTennisGameShouldHaveTwoPlayersInitializedWithDefaultNameTest(){
+    public void whenTheGameStartsTennisGameShouldHaveTwoPlayersInitializedWithDefaultNameTest() {
         Assertions.assertEquals("Player1", tennisGame.getPlayerOne().getName());
         Assertions.assertEquals("Player2", tennisGame.getPlayerTwo().getName());
     }
 
     @Test
     @DisplayName("Tennis Game should have possibility to initialize the player with customer names")
-    public void tennisGameShouldHavePossibilityToRegisterCustomNameForTwoPlayersTest() {
+    public void whenTheGameStartsTennisGameShouldHavePossibilityToRegisterCustomNameForTwoPlayersTest() {
         tennisGame = new TennisGame("Tom", "John");
         Assertions.assertEquals("Tom", tennisGame.getPlayerOne().getName());
         Assertions.assertEquals("John", tennisGame.getPlayerTwo().getName());
@@ -38,14 +38,14 @@ public class TennisGameTest {
 
     @Test
     @DisplayName("At the start of the Tennis Game each player should have zero points ")
-    public void atTheStartOfTheGameEachPlayerShouldBeInitializedWithZeroPointTest(){
+    public void whenTheGameStartsEachPlayerShouldBeInitializedWithZeroPointTest() {
         Assertions.assertEquals(0, tennisGame.getPlayerOne().getPoint());
         Assertions.assertEquals(0, tennisGame.getPlayerTwo().getPoint());
     }
 
     @Test
     @DisplayName("Score should be Love-All At the beginning of the Tennis game")
-    public void statusOfTheTennisGameShouldBeLoveAllAtTheBeginnningTest(){
+    public void whenTheGameStartsGameScoreShouldBeLoveAllTest() {
         assertEquals("Love-All", tennisGame.calculateGameScore());
     }
 
