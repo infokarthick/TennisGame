@@ -40,7 +40,7 @@ public class TennisGame {
         return playerTwo;
     }
 
-    public String getGameScore() {
+    public String calculateGameScore() {
         if (isScoredPointsAreEqual()) {
             gameScore = isMinimumDeucePointsScored() ? DEUCE : getConcatenatedString(score[playerOne.getPoint()], HYPHEN_ALL);
         } else if (isAnyPlayerEligibleToWin()) {
@@ -79,4 +79,18 @@ public class TennisGame {
         return playerOne.getPoint() > playerTwo.getPoint() ? playerOne.getName() : playerTwo.getName();
     }
 
+    public void addCurrentServicePointToWinner(int winningIndicator) {
+        if (1 == winningIndicator) {
+            playerOne.scorePoint();
+        } else if (2 == winningIndicator) {
+            playerTwo.scorePoint();
+        } else {
+            throw new IllegalArgumentException("Winning indicator should be either 1 or 2");
+        }
+    }
+
+    public String gameScore(int winningIndicator) {
+        addCurrentServicePointToWinner(winningIndicator);
+        return calculateGameScore();
+    }
 }

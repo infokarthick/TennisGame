@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TennisGameTest {
 
@@ -45,7 +46,7 @@ public class TennisGameTest {
     @Test
     @DisplayName("Score should be Love-All At the beginning of the Tennis game")
     public void statusOfTheTennisGameShouldBeLoveAllAtTheBeginnningTest(){
-        assertEquals("Love-All", tennisGame.getGameScore());
+        assertEquals("Love-All", tennisGame.calculateGameScore());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class TennisGameTest {
     public void whenPlayer1WinsOneServiceThenGameStatusShouldBeEqualToFifteenLoveTest() {
         tennisGame.getPlayerOne().scorePoint();
 
-        assertEquals("Fifteen-Love", tennisGame.getGameScore());
+        assertEquals("Fifteen-Love", tennisGame.calculateGameScore());
     }
 
     @Test
@@ -61,7 +62,7 @@ public class TennisGameTest {
     public void whenPlayer2WinsTwoServicesThenGameStatusShouldBeEqualToLoveThirtyTest() {
         serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
 
-        assertEquals("Love-Thirty", tennisGame.getGameScore());
+        assertEquals("Love-Thirty", tennisGame.calculateGameScore());
     }
 
     @Test
@@ -70,7 +71,7 @@ public class TennisGameTest {
         serviceWinByPlayer(tennisGame.getPlayerOne(), 3);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
 
-        assertEquals("Forty-Thirty", tennisGame.getGameScore());
+        assertEquals("Forty-Thirty", tennisGame.calculateGameScore());
     }
 
     @ParameterizedTest
@@ -82,7 +83,7 @@ public class TennisGameTest {
         serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
-        assertEquals(gameScore, tennisGame.getGameScore());
+        assertEquals(gameScore, tennisGame.calculateGameScore());
     }
 
     @ParameterizedTest
@@ -92,7 +93,7 @@ public class TennisGameTest {
         serviceWinByPlayer(tennisGame.getPlayerOne(), points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), points);
 
-        assertEquals("Deuce", tennisGame.getGameScore());
+        assertEquals("Deuce", tennisGame.calculateGameScore());
     }
 
 
@@ -105,7 +106,7 @@ public class TennisGameTest {
         serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
-        assertEquals(gameScore, tennisGame.getGameScore());
+        assertEquals(gameScore, tennisGame.calculateGameScore());
     }
 
     @ParameterizedTest
@@ -115,8 +116,60 @@ public class TennisGameTest {
         serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
-        assertEquals(gameScore, tennisGame.getGameScore());
+        assertEquals(gameScore, tennisGame.calculateGameScore());
     }
+
+    @Test
+    @DisplayName("If the winning indicator is one then PlayerOne point should be incremented by one")
+    public void whenTheWinningIndicatorIsOneThenPlayer1PointShouldBeIncrementByOne() {
+        serviceWinByPlayer(tennisGame.getPlayerOne(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 1);
+        int playerOnePreviousPoint = tennisGame.getPlayerOne().getPoint();
+
+        tennisGame.addCurrentServicePointToWinner(1);
+
+        assertEquals(playerOnePreviousPoint + 1, tennisGame.getPlayerOne().getPoint());
+    }
+
+    @Test
+    @DisplayName("If the winning indicator is two then PlayerTwo point should be incremented by one")
+    public void whenTheWinningIndicatorIsTwoThenPlayer1PointShouldBeIncrementByOne() {
+        serviceWinByPlayer(tennisGame.getPlayerOne(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 1);
+        int playerTwoPreviousPoint = tennisGame.getPlayerTwo().getPoint();
+
+        tennisGame.addCurrentServicePointToWinner(2);
+
+        assertEquals(playerTwoPreviousPoint + 1, tennisGame.getPlayerTwo().getPoint());
+    }
+
+    @Test
+    @DisplayName("If the winning indicator is other than one and two then throw IllegalArgumentException")
+    public void whenTheWinningIndicatorIsWrongThenThrowIllegalArgumentException() {
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            tennisGame.addCurrentServicePointToWinner(4);
+        });
+    }
+
+    @Test
+    @DisplayName("If the winning indicator is one and Game score is Thirty-All then new game score should be equal to Forty-Thirty")
+    public void whenTheWinningIndicatorIsOneAndGameScoreIsThirtyAllThenNewGameScoreShouldBeFortyThirty() {
+        serviceWinByPlayer(tennisGame.getPlayerOne(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
+
+        assertEquals("Forty-Thirty", tennisGame.gameScore(1));
+    }
+
+    @Test
+    @DisplayName("If the winning indicator is two and Game score is Thirty-All then new game score should be equal to Thirty-Forty")
+    public void whenTheWinningIndicatorIsTwoAndGameScoreIsThirtyAllThenNewGameScoreShouldBeThirtyForty() {
+        serviceWinByPlayer(tennisGame.getPlayerOne(), 2);
+        serviceWinByPlayer(tennisGame.getPlayerTwo(), 2);
+
+        assertEquals("Thirty-Forty", tennisGame.gameScore(2));
+    }
+
 
     private void serviceWinByPlayer(Player player, int numberOfWins) {
         for (int i = 0; i < numberOfWins; i++) {
