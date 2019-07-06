@@ -102,7 +102,7 @@ public class TennisGameTest {
             "10,8,Player1 won the match", "0,4,Player2 won the match", "1,4,Player2 won the match",
             "3,5,Player2 won the match", "6,8,Player2 won the match", "9,11,Player2 won the match"})
     @DisplayName("A game is Won by a player to have won at least four points in total and at least two points more than the opponent")
-    public void gameIsWonByPlayerToHaveMinimumFourPointsInTotalAndMinimumTwoPointsMoreThanTheOpponent(int player1Points, int player2Points, String gameScore) {
+    public void whenAPlayerScoresMinimumFourPointsInTotalAndMinimumTwoPointsMoreThanTheOpponentThenGameIsWonByThatPlayer(int player1Points, int player2Points, String gameScore) {
         serviceWinByPlayer(tennisGame.getPlayerOne(), player1Points);
         serviceWinByPlayer(tennisGame.getPlayerTwo(), player2Points);
 
