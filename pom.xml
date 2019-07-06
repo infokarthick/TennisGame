@@ -96,10 +96,10 @@
                 </dependencies>
                 <configuration>
                     <targetClasses>
-                        <param>com.channels.kata.*</param>
+                        <param>com.kata.tdd.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.channels.kata.*</param>
+                        <param>com.kata.tdd.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
